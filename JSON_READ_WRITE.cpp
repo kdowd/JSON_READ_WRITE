@@ -34,7 +34,7 @@ int main()
     //auto temp = theDoc.at("users").get<vector<MyTest>>();
 
     auto temp = theDoc.at("users");
-    //theDoc.at("users") = 999;
+    theDoc.at("users").push_back({ make_pair("id", 16),make_pair("firstName", "Jezabel"),make_pair("age", 66) });
     temp[0]["age"] = 666;
     temp.push_back({ make_pair("id", 16),make_pair("firstName", "Jezabel"),make_pair("age", 66) });
 
