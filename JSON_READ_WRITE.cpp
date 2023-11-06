@@ -24,7 +24,7 @@ int main()
     std::cout << "Hello World!\n";
 
     fstream theFile;
-    theFile.open("data.txt", ios::in | ios::out | ios::app);
+    theFile.open("data.txt", ios::in  );
 
     json theDoc = json::parse(theFile);
 
@@ -34,11 +34,12 @@ int main()
     //auto temp = theDoc.at("users").get<vector<MyTest>>();
 
     auto temp = theDoc.at("users");
+    //theDoc.at("users") = 999;
     temp[0]["age"] = 666;
     temp.push_back({ make_pair("id", 16),make_pair("firstName", "Jezabel"),make_pair("age", 66) });
 
   // theDoc.push_back({ make_pair("id", 16),make_pair("firstName", "Jezabel"),make_pair("age", 66) });
-
+    theFile.close();
 
     MyTest xx;
     xx.t1 = make_pair("id", 16);
@@ -54,9 +55,8 @@ int main()
     map<string, int> fff;
     fff.insert(make_pair("age", 66));
 
- 
+    theFile.open("data.txt", ios::out);
     theFile << theDoc.dump(4);;
-
     theFile.close();
     
 
