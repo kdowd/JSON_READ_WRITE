@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <map>
 #include <tuple>
 #include "json.hpp"
 #include "json_fwd.hpp"
@@ -23,29 +24,40 @@ int main()
     std::cout << "Hello World!\n";
 
     fstream theFile;
-    theFile.open("data.txt", ios::in);
+    theFile.open("data.txt", ios::in | ios::out | ios::app);
 
-    json theDoc = json::parse(theFile); 
+    json theDoc = json::parse(theFile);
 
 
     //std::cout << theDoc.dump(4);
 
-   // auto temp = theDoc.at("users").get<vector<MyTest>>();
+    //auto temp = theDoc.at("users").get<vector<MyTest>>();
 
     auto temp = theDoc.at("users");
-    temp.push_back( { make_pair("id", 16),make_pair("firstName", "Jezabel"),make_pair("age", 66) });
-    //cout << temp[0]["firstName"].get<string>() << endl;
+    temp[0]["age"] = 666;
+    temp.push_back({ make_pair("id", 16),make_pair("firstName", "Jezabel"),make_pair("age", 66) });
+
+  // theDoc.push_back({ make_pair("id", 16),make_pair("firstName", "Jezabel"),make_pair("age", 66) });
+
+
+    MyTest xx;
+    xx.t1 = make_pair("id", 16);
+    xx.t2 = make_pair("firstName", "dfsdfsd");
+    xx.t3 = make_pair("age", 66);
+ 
 
     for (auto i : temp) {
         cout << i << endl;
         cout << i["age"] << endl;
     }
-    MyTest xx;
-    xx.t1 = make_pair("id", 16);
-    xx.t2 = make_pair("dd", "dfsdfsd");
-    xx.t3 = make_pair("xx", 66);
-
    
+    map<string, int> fff;
+    fff.insert(make_pair("age", 66));
+
+ 
+    theFile << theDoc.dump(4);;
+
+    theFile.close();
     
 
    // cout << temp.type_name() << endl;
